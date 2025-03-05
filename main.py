@@ -1,8 +1,12 @@
 from expenses import add_expenses, view_expenses, calculate_total
+from storage import *
 
 expenses = [] # list python
 
 def main():
+
+    load_expenses_from_csv(expenses)
+
     while True:
         print("************************************************************")
         print("Expanse Tracker")
@@ -23,7 +27,7 @@ def main():
         elif choice == "3":
             calculate_total(expenses)
         elif choice == "4":
-            print("Export Expenses to CSV")
+            export_to_csv(expenses)
         elif choice == "5":
             print("Goodbye!")
             break
