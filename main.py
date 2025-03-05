@@ -1,106 +1,37 @@
-import datetime
+from expenses import add_expenses, view_expenses, calculate_total
 
 expenses = [] # list python
 
-"""
-    add new expenses to the list 
-
-    Parameters:
-    amount (int) 
-    category (str) 
-    description (str) 
-    date_input (today)
-
-    """
-
-
-def add_expenses():
-    try:
-        amount = int(input("How many expenses? "))
-        category = input("What category do you want to add? (e.g., Food, Transport, etc. ")
-        description = input("What do you want to add?")
-        date_input = input(f"Enter date (YYYY-MM-DD) or press Enter for today: ")
-
-        if not date_input:
-            date_input = datetime.date.today()
-
-        expense = {
-            "amount": amount,
-            "category": category,
-            "description": description,
-            "date": date_input
-        }
-        expenses.append(expense)
-
-        print("Expenses added successfully")
-
-    except ValueError:
-        print("Invalid input, try again")
-
-
-"""
-    display expenses 
-    Parameters:
-    expenses (list) 
-
-    """
-
-
-def view_expenses():
-    if len(expenses) == 0:
-        print("No expenses to show")
-        return
-
-    print("\n--- Expense List ---")
-    idx = 1
-    for expense in expenses:
-        print(f"{idx}. ${expense['amount']} - {expense['category']} - {expense['description']} ({expense['date']})")
-        idx += 1
-
-
-def calculate_total():
-    sum = 0
-    for expense in expenses:
-        sum += expense['amount']
-    print(f"Total: {sum}")
-
-def welcome():
-    print("************************************************************")
-    print("Expanse Tracker")
-    print("************************************************************")
-    print("What do you want to do?")
-    print("add Expenses (A), view expenses (B), calculate total (C) and Quite (Q)")
-    print("************************************************************")
-
-def menu():
+def main():
     while True:
-        try:
-            userInput = input("Type A, B, C or Q ").upper()
+        print("************************************************************")
+        print("Expanse Tracker")
+        print("************************************************************")
+        print("What do you want to do?")
+        print("1. Add Expense")
+        print("2. View Expenses")
+        print("3. Calculate Total Spending")
+        print("4. Export Expenses to CSV")
+        print("5. Exit")
 
-            if userInput not in ["A", "B", "C", "Q", "y", "n"]:
-                raise ValueError("Invalid input, try again")
+        choice = input("Choose an option: ")
 
-            if userInput == "A":
-                add_expenses()
-            elif userInput == "B":
-                view_expenses()
-            elif userInput == "C":
-                calculate_total()
-            elif userInput == "Q":
-                print("Quit")
+        if choice == "1":
+            add_expenses(expenses)
+        elif choice == "2":
+            view_expenses(expenses)
+        elif choice == "3":
+            calculate_total(expenses)
+        elif choice == "4":
+            print("Export Expenses to CSV")
+        elif choice == "5":
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice, please try again.")
 
-            restart = input("Do you want to make another input? (y/n): ").lower()
-            if restart == 'n':
-                print("Exiting the program.")
-                break
-
-
-        except ValueError as e:
-            print(e)
-
-
-welcome()
-menu()
+if __name__ == "__main__":
+    main()
 
 
 
